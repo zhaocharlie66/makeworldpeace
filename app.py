@@ -60,6 +60,10 @@ def cleanup_old_files():
 class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/':
+            # 仅针对 HEAD 请求返回 200 OK 状态码，不包含任何 Body
+            if request.method == 'HEAD':
+                return web.Response(status=200)
+                
             self.send_response(200)
             self.send_header('Content-type', 'text/html; charset=utf-8')
             self.end_headers()
