@@ -74,7 +74,11 @@ class RequestHandler(BaseHTTPRequestHandler):
                     print(f"Error reading index.html: {e}")
             else:
                 self.wfile.write(b'Make world Peace!')
-            
+
+        elif request.path == '/healthz':
+            # 只要代码能执行到这里，说明服务还在处理请求
+            return web.Response(text='OK', content_type='text/plain', status=200)
+        
         elif self.path == f'/{SUB_PATH}':
             try:
                 with open(sub_path, 'rb') as f:
